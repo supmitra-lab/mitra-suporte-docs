@@ -71,39 +71,12 @@ Os documentos podem cobrir qualquer tema, mas as categorias mais comuns sao:
 
 ---
 
-## Como criar um novo documento
-
-1. Crie um arquivo `.md` na raiz do repositorio
-2. Use a convencao de nome: `[versao]-[tema].md`
-3. Comece o documento com um titulo `# Titulo` e uma descricao breve
-4. Use headings (`##`, `###`) para organizar as secoes
-5. Faca commit e push
-
-### Template basico
-
-```markdown
-# Titulo do Documento
-
-Breve descricao do que este documento cobre e para quem e destinado.
-
----
-
-## Secao 1
-
-Conteudo...
-
-## Secao 2
-
-Conteudo...
-```
-
----
-
 ## Documentos disponiveis
 
 | Arquivo | Versao | Tema |
 |---------|--------|------|
 | [geral-login-permissoes-acessos.md](geral-login-permissoes-acessos.md) | Todas | Login, SSO, permissoes e controle de acesso |
+| [agent-guia-integracao-dados.md](agent-guia-integracao-dados.md) | Agent | Guia de integracao de dados para consultores |
 
 ---
 
