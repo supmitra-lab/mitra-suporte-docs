@@ -99,19 +99,6 @@ Conteudo...
 
 ---
 
-## Como usar este repositorio com o Claude Code
-
-Ao iniciar uma nova sessao com o Claude Code para criar ou atualizar documentos neste repo, basta enviar este README para que ele entenda:
-
-1. A estrutura e convencao de nomes dos arquivos
-2. O publico-alvo e tom da documentacao
-3. Onde o repositorio esta localizado (`C:\Users\mitra\Desktop\projetosMitra\mitra-suporte-docs`)
-
-Exemplo de instrucao:
-> "Crie um novo documento `agent-configuracao-ia.md` no repo mitra-suporte-docs sobre como configurar os shortcuts de IA no Mitra Agent"
-
----
-
 ## Documentos disponiveis
 
 | Arquivo | Versao | Tema |
@@ -123,4 +110,3 @@ Exemplo de instrucao:
 ## Repositorio
 
 - **GitHub:** [supmitra-lab/mitra-suporte-docs](https://github.com/supmitra-lab/mitra-suporte-docs)
-- **Local:** `C:\Users\mitra\Desktop\projetosMitra\mitra-suporte-docs`
