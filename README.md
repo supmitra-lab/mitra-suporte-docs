@@ -76,6 +76,10 @@ Os documentos podem cobrir qualquer tema, mas as categorias mais comuns sao:
 | Arquivo | Versao | Tema |
 |---------|--------|------|
 | [geral-login-permissoes-acessos.md](geral-login-permissoes-acessos.md) | Todas | Login, SSO, permissoes e controle de acesso |
+| [geral-arquitetura-plataforma.md](geral-arquitetura-plataforma.md) | Todas | Arquitetura, hospedagem, isolamento, integracoes, portabilidade |
+| [geral-seguranca-lgpd-ia.md](geral-seguranca-lgpd-ia.md) | Todas | Criptografia, LGPD, privacidade, DRP, logs, certificacoes |
+| [geral-governanca-ia.md](geral-governanca-ia.md) | Todas | Modelo agnostico de LLM, prompt engineering, custos, controles de IA |
+| [geral-sla-suporte.md](geral-sla-suporte.md) | Todas | SLA, canais de suporte, pen test, gestao de vulnerabilidades |
 | [agent-guia-integracao-dados.md](agent-guia-integracao-dados.md) | Agent | Guia de integracao de dados para consultores |
 
 ---
