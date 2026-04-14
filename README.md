@@ -55,6 +55,18 @@ mitralab-deploy-s3.md                  # Especifico do MitraLab
 mitrasheet-formulas-avancadas.md       # Especifico do MitraSheet
 ```
 
+### Como identificar a versao pelo link de acesso
+
+| Versao | Padrao de URL | Observacao |
+|--------|--------------|------------|
+| **MitraECP** | Links variados | Poucos clientes antigos |
+| **MitraSheet** | `app.mitrasheet.*` | |
+| **MitraLab** | `app.mitralab.*` | |
+| **Preview** | `ai.mitralab.*` | Versao identica ao MitraLab |
+| **Agent** | `agent.mitralab.io` | Versao mais recente |
+
+**Importante:** Quando o link nao seguir nenhum desses padroes, o time de suporte deve confirmar a versao antes de prosseguir com o atendimento.
+
 ### Categorias sugeridas
 
 Os documentos podem cobrir qualquer tema, mas as categorias mais comuns sao:
@@ -80,7 +92,14 @@ Os documentos podem cobrir qualquer tema, mas as categorias mais comuns sao:
 | [geral-seguranca-lgpd-ia.md](geral-seguranca-lgpd-ia.md) | Todas | Criptografia, LGPD, privacidade, DRP, logs, certificacoes |
 | [geral-governanca-ia.md](geral-governanca-ia.md) | Todas | Modelo agnostico de LLM, prompt engineering, custos, controles de IA |
 | [geral-sla-suporte.md](geral-sla-suporte.md) | Todas | SLA, canais de suporte, pen test, gestao de vulnerabilidades |
+| [geral-analytics-sankhya.md](geral-analytics-sankhya.md) | Todas | Integracao Analytics AI com Sankhya ERP, troubleshooting |
+| [geral-api-rest.md](geral-api-rest.md) | Todas | API REST (GET/POST/PUT/DELETE), autenticacao, Actions via API |
+| [geral-resposta-incidentes.md](geral-resposta-incidentes.md) | Todas | Plano de resposta a incidentes de seguranca |
+| [geral-politica-privacidade.md](geral-politica-privacidade.md) | Todas | Politica de privacidade e tratamento de dados |
+| [agent-congelamento-exclusao-backup.md](agent-congelamento-exclusao-backup.md) | Agent | Backup (banco + frontend S3), congelamento, restauracao |
 | [agent-guia-integracao-dados.md](agent-guia-integracao-dados.md) | Agent | Guia de integracao de dados para consultores |
+| [agent-onboarding-whitelabel.md](agent-onboarding-whitelabel.md) | Agent | Onboarding de parceiros whitelabel |
+| [mitralab-congelamento-exclusao-backup.md](mitralab-congelamento-exclusao-backup.md) | MitraLab/Sheet | Backup, congelamento, exclusao, restauracao, duplicacao |
 
 ---
 
