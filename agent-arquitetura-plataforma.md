@@ -146,3 +146,50 @@ Para clientes que exigem isolamento total, os seguintes componentes podem ser de
 Os componentes gerenciados (mitra-nuxt, backend WebSocket, Mitra Space) permanecem na infraestrutura da Mitra.
 
 Nuvens homologadas para componentes dedicados: Azure, AWS, GCP. Specs e valores alinhados pelo time comercial.
+
+---
+
+## Backup, congelamento e restauracao
+
+### Backup
+
+Um projeto no Mitra Agent e composto por duas partes com estrategias de backup distintas:
+
+| Componente | Metodo de backup | Retencao | RPO maximo |
+|-----------|-----------------|----------|-----------|
+| **Banco de dados** (dados, metadados, server functions) | Backup automatico diario (noturno) em S3 separado | Indefinida | 24 horas |
+| **Frontend** (codigo React compilado) | S3 com versionamento ativo | 7 dias de versoes | Minutos (cada alteracao gera versao) |
+
+Isso significa que:
+- Alteracoes no frontend podem ser revertidas a qualquer momento dentro de 7 dias
+- Alteracoes no banco dependem do backup diario noturno
+
+### Congelamento automatico
+
+Projetos sem acesso por 30 dias (baseado na tabela `INT_USERLOG`) sao elegiveis para congelamento automatico:
+
+1. Backup completo e gerado antes do congelamento
+2. Status do projeto muda para **Congelado**
+3. Base de dados ativa e removida
+4. Projeto deixa de estar disponivel para acesso
+
+A tabela `INT_USERLOG` registra apenas acessos as telas de interface. Se usuarios nao acessarem telas, o projeto e considerado inativo mesmo que existam integracoes rodando.
+
+### Exclusao de projetos
+
+Quando um projeto e excluido:
+- Backup adicional do banco e gerado no momento da exclusao
+- Frontend permanece no S3 com versionamento por ate 7 dias
+- Existe log interno de exclusao
+- Em caso de exclusao acidental, acionar o suporte imediatamente
+
+### Restauracao
+
+Solicitar ao **Suporte Mitra** informando:
+- Workspace ID, nome e ID do projeto
+- O que precisa restaurar (frontend, banco ou ambos)
+- Data/hora aproximada desejada
+
+Formas de restauracao:
+1. **Em um novo projeto** (recomendado) — para comparar ou recuperar sem sobrescrever
+2. **Sobre o projeto original** — substitui completamente o estado atual (sem merge)

@@ -111,7 +111,7 @@ O Mitra Space gerencia apenas os acessos dos **desenvolvedores** a plataforma (w
 | Banco (MySQL) | Backup diario noturno | Indefinida | 24 horas |
 | Server functions | Incluidas no backup do banco | Indefinida | 24 horas |
 
-Para detalhes completos sobre backup e restauracao, consulte [agent-congelamento-exclusao-backup.md](agent-congelamento-exclusao-backup.md).
+Para detalhes completos sobre backup, congelamento e restauracao, consulte a secao "Backup, congelamento e restauracao" em [agent-arquitetura-plataforma.md](agent-arquitetura-plataforma.md).
 
 ---
 
