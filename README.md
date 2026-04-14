@@ -96,6 +96,8 @@ Os documentos podem cobrir qualquer tema, mas as categorias mais comuns sao:
 | [geral-api-rest.md](geral-api-rest.md) | Todas | API REST (GET/POST/PUT/DELETE), autenticacao, Actions via API |
 | [geral-resposta-incidentes.md](geral-resposta-incidentes.md) | Todas | Plano de resposta a incidentes de seguranca |
 | [geral-politica-privacidade.md](geral-politica-privacidade.md) | Todas | Politica de privacidade e tratamento de dados |
+| [agent-arquitetura-plataforma.md](agent-arquitetura-plataforma.md) | Agent | Arquitetura da plataforma Agent (servicos, E2B, SDKs, on-premise) |
+| [agent-arquitetura-projetos.md](agent-arquitetura-projetos.md) | Agent | Stack dos sistemas desenvolvidos (React + server functions + MySQL) |
 | [agent-congelamento-exclusao-backup.md](agent-congelamento-exclusao-backup.md) | Agent | Backup (banco + frontend S3), congelamento, restauracao |
 | [agent-guia-integracao-dados.md](agent-guia-integracao-dados.md) | Agent | Guia de integracao de dados para consultores |
 | [agent-onboarding-whitelabel.md](agent-onboarding-whitelabel.md) | Agent | Onboarding de parceiros whitelabel |
