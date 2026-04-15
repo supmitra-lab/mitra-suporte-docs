@@ -80,8 +80,9 @@ Recebe o prompt do frontend e orquestra a execucao:
 ### 4. Sandbox E2B
 
 Ambiente isolado (e2b.dev) onde:
-- Uma CLI de IA gera codigo React
+- Uma CLI de IA gera codigo React (componentes, telas, dashboards)
 - O codigo e compilado com Vite (build acontece dentro do E2B)
+- **As server functions do projeto tambem sao executadas dentro do E2B**
 - O output e streamado em tempo real de volta pro frontend
 - Cada cliente pode usar sua propria API key do E2B
 
@@ -97,14 +98,15 @@ Ambiente isolado (e2b.dev) onde:
 - O E2B usa microVMs Firecracker (mesma tecnologia da AWS Lambda)
 - Cada sandbox tem seu proprio kernel Linux isolado, impedindo escapes entre sandboxes
 
-**Acesso a dados (MCP):**
-- A IA no sandbox acessa dados do projeto via MCP (Model Context Protocol)
+**Acesso a dados (via SDK com JWT):**
+- A IA no sandbox acessa dados do projeto via **SDK nativa do Mitra com autenticacao JWT**
+- A SDK se comunica com o Backend Java da Mitra, que faz a leitura/escrita no banco
 - Isso permite validacao e teste de queries durante o desenvolvimento
 - O acesso respeita o modelo de permissoes do Mitra (RBAC + perfis de seguranca)
 - A IA opera exclusivamente dentro do escopo autorizado para o usuario
 
 **Acesso a internet:**
-- O sandbox possui acesso a internet habilitado (necessario para MCP do Mitra, API do provedor de LLM e pesquisas durante o desenvolvimento)
+- O sandbox possui acesso a internet habilitado (necessario para comunicacao com o Backend Java da Mitra via SDK, API do provedor de LLM e pesquisas durante o desenvolvimento)
 - Nao e possivel restringir esse acesso
 
 **Token E2B:**

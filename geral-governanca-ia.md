@@ -25,13 +25,15 @@ O cliente conecta sua propria chave de API ou subscricao. A Mitra **nao e interm
 | RAG (Retrieval-Augmented Generation) | Nao |
 | Indices vetoriais / embeddings | Nao |
 | Modelo proprietario | Nao |
-| Acesso a dados | Via **MCP** (Model Context Protocol) durante sessoes ativas |
+| Acesso a dados | Via **SDK nativa do Mitra** com autenticacao JWT (somente Agent) |
 
 Nao ha embeddings dos dados do cliente armazenados em nenhum lugar. Cada sessao de chat com a IA comeca do zero, sem retencao de contexto de sessoes anteriores.
 
-### Acesso a dados via MCP (apenas Agent)
+### Acesso a dados pela IA (apenas Agent)
 
-Na versao Agent, a IA acessa dados do projeto em tempo real via **MCP (Model Context Protocol)** durante o desenvolvimento. Isso permite que a IA:
+Na versao Agent, a IA acessa dados do projeto em tempo real via **SDK nativa do Mitra com autenticacao JWT** durante o desenvolvimento. A SDK se comunica diretamente com o Backend Java da Mitra, que faz a leitura/escrita no banco do projeto.
+
+Isso permite que a IA:
 
 - Consulte estrutura e conteudo das tabelas
 - Valide queries e transformacoes
@@ -39,7 +41,7 @@ Na versao Agent, a IA acessa dados do projeto em tempo real via **MCP (Model Con
 
 O acesso respeita o modelo de permissoes do Mitra (RBAC + perfis de seguranca). A IA opera exclusivamente dentro do escopo autorizado para o usuario que esta desenvolvendo — nao tem acesso a dados fora do escopo dele.
 
-Dados acessados via MCP ficam disponiveis apenas durante a sessao ativa do sandbox. Apos encerramento (por timeout sem interacoes), nenhum dado persiste — os sandboxes sao efemeros.
+Dados acessados via SDK ficam disponiveis apenas durante a sessao ativa do sandbox. Apos encerramento (por timeout sem interacoes), nenhum dado persiste — os sandboxes sao efemeros.
 
 ---
 

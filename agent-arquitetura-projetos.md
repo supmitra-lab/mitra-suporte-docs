@@ -69,7 +69,8 @@ O frontend se comunica com o backend via **mitra-interactions-sdk**, que fornece
 As server functions sao o backend do sistema. Elas:
 - Sao escritas em **SQL ou JavaScript**
 - Ficam **salvas no banco de dados MySQL** do projeto (nao em arquivos separados)
-- Sao executadas pelo **Backend Java (Mitra API)**
+- **Durante o desenvolvimento** (quando a IA esta criando/testando), as server functions sao executadas dentro do sandbox **E2B**
+- Em execucao do sistema final (producao), podem ser invocadas via SDK pelo frontend e processadas pelo Backend Java
 - Podem ser criadas/editadas pela IA (via `mitra-sdk`) ou manualmente
 
 Casos de uso de server functions:
