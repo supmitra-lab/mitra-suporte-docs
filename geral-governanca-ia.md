@@ -25,8 +25,21 @@ O cliente conecta sua propria chave de API ou subscricao. A Mitra **nao e interm
 | RAG (Retrieval-Augmented Generation) | Nao |
 | Indices vetoriais / embeddings | Nao |
 | Modelo proprietario | Nao |
+| Acesso a dados | Via **MCP** (Model Context Protocol) durante sessoes ativas |
 
 Nao ha embeddings dos dados do cliente armazenados em nenhum lugar. Cada sessao de chat com a IA comeca do zero, sem retencao de contexto de sessoes anteriores.
+
+### Acesso a dados via MCP (apenas Agent)
+
+Na versao Agent, a IA acessa dados do projeto em tempo real via **MCP (Model Context Protocol)** durante o desenvolvimento. Isso permite que a IA:
+
+- Consulte estrutura e conteudo das tabelas
+- Valide queries e transformacoes
+- Teste o comportamento do codigo gerado com dados reais
+
+O acesso respeita o modelo de permissoes do Mitra (RBAC + perfis de seguranca). A IA opera exclusivamente dentro do escopo autorizado para o usuario que esta desenvolvendo — nao tem acesso a dados fora do escopo dele.
+
+Dados acessados via MCP ficam disponiveis apenas durante a sessao ativa do sandbox. Apos encerramento (por timeout sem interacoes), nenhum dado persiste — os sandboxes sao efemeros.
 
 ---
 

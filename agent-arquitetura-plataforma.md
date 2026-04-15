@@ -85,6 +85,37 @@ Ambiente isolado (e2b.dev) onde:
 - O output e streamado em tempo real de volta pro frontend
 - Cada cliente pode usar sua propria API key do E2B
 
+**Lifecycle do sandbox:**
+- Um sandbox e criado por prompt
+- Timeout automatico estendido em 20 minutos a cada nova interacao do usuario
+- Sandbox permanece ativo enquanto houver interacoes
+- Ao cessar a atividade e vencer o timeout, o sandbox e encerrado automaticamente
+- Sandbox encerrado e destruido (efemero) — nenhum dado persiste
+- O codigo compilado (build) e armazenado no S3 antes do encerramento
+
+**Isolamento:**
+- O E2B usa microVMs Firecracker (mesma tecnologia da AWS Lambda)
+- Cada sandbox tem seu proprio kernel Linux isolado, impedindo escapes entre sandboxes
+
+**Acesso a dados (MCP):**
+- A IA no sandbox acessa dados do projeto via MCP (Model Context Protocol)
+- Isso permite validacao e teste de queries durante o desenvolvimento
+- O acesso respeita o modelo de permissoes do Mitra (RBAC + perfis de seguranca)
+- A IA opera exclusivamente dentro do escopo autorizado para o usuario
+
+**Acesso a internet:**
+- O sandbox possui acesso a internet habilitado (necessario para MCP do Mitra, API do provedor de LLM e pesquisas durante o desenvolvimento)
+- Nao e possivel restringir esse acesso
+
+**Token E2B:**
+- O token da API do E2B fica exclusivamente no backend WebSocket (servidor Node.js)
+- Nunca e exposto ao frontend/browser do usuario
+
+**Logs:**
+- O Mitra armazena apenas o historico de conversas (prompts e respostas) no Firebase
+- Logs detalhados de execucao dentro do sandbox (comandos, chamadas de API) nao sao armazenados pelo Mitra
+- O proprio E2B fornece metricas e logs via dashboard da plataforma
+
 ### 5. Storage (S3 + Firebase)
 
 Apos o build:
