@@ -4,6 +4,36 @@ Documentacao sobre a arquitetura tecnica dos sistemas/projetos que sao criados d
 
 ---
 
+## Flexibilidade e customizacao
+
+Os sistemas desenvolvidos no Mitra Agent sao **100% flexiveis e customizaveis**. O usuario pode construir praticamente qualquer coisa que um sistema corporativo tradicional faria, simplesmente descrevendo o que precisa em linguagem natural. A IA cuida do desenvolvimento do codigo React, das server functions, da estrutura do banco de dados e das integracoes.
+
+Isso significa que features como:
+
+- **Workflows de aprovacao multinivel** (com notificacoes, deadlines, status tracking)
+- **Motores de cenarios** (Base/Best/Worst Case com premissas parametrizaveis)
+- **Modelagem financeira** (P&L, EBITDA, FCF, ARPU, NRR, LTV por coorte)
+- **Suporte multi-moeda** (BRL/USD/EUR com taxa configuravel)
+- **Dashboards interativos** com drill-down e filtros dinamicos
+- **Regras de negocio complexas** (alocacoes top-down, bridge de receita, waterfall charts)
+- **Trilha de auditoria** (quem alterou, quando, valores antes/depois)
+- **Notificacoes por email, Slack, WhatsApp**
+- **Integracoes com qualquer sistema** (CRMs, ERPs, BIs, data warehouses)
+
+...sao todas implementaveis via prompts para a IA, **sem precisar de feature nativa da plataforma**. A plataforma fornece os blocos fundamentais (frontend React, backend, banco, integracoes); o que sera construido em cima disso e totalmente customizavel.
+
+### Store de templates
+
+Alem da customizacao total via IA, o Mitra possui uma **Store de templates** que acelera projetos com casos de uso comuns (FP&A, CRM, BI financeiro, eNPS, planejamento orcamentario, etc.). O cliente pode partir de um template pronto e customizar a partir dele.
+
+Para saber quais templates estao disponiveis e o que cada um faz, consultar o **Time da Store**.
+
+### Mobile e responsividade
+
+Os sistemas desenvolvidos no Mitra Agent sao **100% responsivos para mobile por padrao**. Basta solicitar a IA que o layout seja adaptado para dispositivos moveis — o sistema final pode ser acessado diretamente pelo navegador do celular, sem necessidade de app nativo.
+
+---
+
 ## Visao geral
 
 Um sistema desenvolvido no Mitra Agent e composto por quatro camadas:

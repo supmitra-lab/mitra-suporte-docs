@@ -67,6 +67,25 @@ mitrasheet-formulas-avancadas.md       # Especifico do MitraSheet
 
 **Importante:** Quando o link nao seguir nenhum desses padroes, o time de suporte deve confirmar a versao antes de prosseguir com o atendimento.
 
+---
+
+## Assuntos que devem ser direcionados para outros times
+
+Alguns assuntos fogem do escopo do bot de suporte (que responde com base apenas nas docs deste repo) e devem ser direcionados para times especializados:
+
+| Assunto | Time responsavel | O que direcionar |
+|---------|-----------------|------------------|
+| **Templates da Store** | Time da Store | Quais templates existem, o que cada um faz, cases de uso especificos (ex: FP&A, CRM, BI financeiro, eNPS). O bot nao tem acesso aos templates — apenas o time da Store conhece o catalogo completo. |
+| **Precos, propostas, contratos** | Time Comercial | Modelos de licenciamento, TCO, SLA de disponibilidade, clausulas, valores de VM exclusiva, planos e descontos. |
+| **Parcerias e whitelabel** | Time Comercial | Onboarding de novos parceiros, specs e valores de infraestrutura dedicada. |
+| **Tickets de investigacao tecnica** | Time de Suporte | Quando o bot nao conseguir resolver um ticket de duvida ou investigacao sozinho com base nas docs, redirecionar para o time de suporte humano. |
+| **Infraestrutura e DevOps** | Time de Suporte/Infra | Questoes que envolvam alteracoes em infraestrutura, provisionamento de VMs, configuracao de ambientes dedicados, BYOC. |
+| **Consultoria em projetos** | Time de Consultoria | Modelagem de negocio, estruturacao de dashboards, definicao de KPIs, migracao de sistemas legados. |
+
+**Regra geral:** se o bot nao encontrar resposta clara nas docs ou o assunto envolver negociacao, cobranca, templates especificos ou infraestrutura, direcionar para o time apropriado ao inves de tentar responder.
+
+---
+
 ### Categorias sugeridas
 
 Os documentos podem cobrir qualquer tema, mas as categorias mais comuns sao:
