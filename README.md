@@ -71,18 +71,25 @@ mitrasheet-formulas-avancadas.md       # Especifico do MitraSheet
 
 ## Assuntos que devem ser direcionados para outros times
 
-Alguns assuntos fogem do escopo do bot de suporte (que responde com base apenas nas docs deste repo) e devem ser direcionados para times especializados:
+**Regra geral:** o bot deve **sempre tentar resolver sozinho primeiro**, usando as docs deste repo. Apenas quando a resposta nao estiver nas docs ou o assunto envolver conhecimento especializado fora do escopo tecnico, direcionar para o time apropriado.
 
-| Assunto | Time responsavel | O que direcionar |
-|---------|-----------------|------------------|
-| **Templates da Store** | Time da Store | Quais templates existem, o que cada um faz, cases de uso especificos (ex: FP&A, CRM, BI financeiro, eNPS). O bot nao tem acesso aos templates — apenas o time da Store conhece o catalogo completo. |
-| **Precos, propostas, contratos** | Time Comercial | Modelos de licenciamento, TCO, SLA de disponibilidade, clausulas, valores de VM exclusiva, planos e descontos. |
+### Direcionamento direto (fora do escopo do bot)
+
+| Assunto | Time responsavel | Motivo |
+|---------|-----------------|--------|
+| **Templates da Store** | Time da Store | O bot nao tem acesso ao catalogo de templates. Apenas o time da Store conhece os templates disponiveis e o que cada um faz. |
+| **Precos, propostas, contratos, SLA comercial** | Time Comercial | Modelos de licenciamento, TCO, clausulas, valores de VM exclusiva, planos e descontos. |
 | **Parcerias e whitelabel** | Time Comercial | Onboarding de novos parceiros, specs e valores de infraestrutura dedicada. |
-| **Tickets de investigacao tecnica** | Time de Suporte | Quando o bot nao conseguir resolver um ticket de duvida ou investigacao sozinho com base nas docs, redirecionar para o time de suporte humano. |
-| **Infraestrutura e DevOps** | Time de Suporte/Infra | Questoes que envolvam alteracoes em infraestrutura, provisionamento de VMs, configuracao de ambientes dedicados, BYOC. |
-| **Consultoria em projetos** | Time de Consultoria | Modelagem de negocio, estruturacao de dashboards, definicao de KPIs, migracao de sistemas legados. |
 
-**Regra geral:** se o bot nao encontrar resposta clara nas docs ou o assunto envolver negociacao, cobranca, templates especificos ou infraestrutura, direcionar para o time apropriado ao inves de tentar responder.
+### Direcionamento condicional (apenas apos tentativa de resolucao)
+
+O bot deve tentar resolver com base nas docs. Se nao conseguir, entao direciona:
+
+| Assunto | Time responsavel | Quando direcionar |
+|---------|-----------------|-------------------|
+| **Tickets de duvida ou investigacao tecnica** | Time de Suporte | Apos esgotar as informacoes das docs sem conseguir resolver o ticket. |
+| **Infraestrutura e DevOps** | Time de Suporte/Infra | Apos esgotar as docs de infra/devops sem conseguir resolver. O bot tera acesso a docs com procedimentos de investigacao e resolucao. |
+| **Consultoria em projetos** | Time de Consultoria | Quando a duvida envolver modelagem de negocio, estruturacao de dashboards, definicao de KPIs ou migracao de sistemas legados, e nao houver orientacao nas docs. |
 
 ---
 

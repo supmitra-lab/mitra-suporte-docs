@@ -97,27 +97,20 @@ O provedor de LLM (Anthropic ou OpenAI) so e acionado quando o usuario interage 
 | Servico | Suporte |
 |---------|---------|
 | Sankhya (API e DB direto) | Sim |
-| Microsoft Dynamics | Sim |
 
 ### Integracao generica
 
-E possivel integrar com qualquer ferramenta que disponibilize:
+A plataforma e **agnostica quanto a sistemas externos**. E possivel integrar com qualquer ferramenta que disponibilize:
 - API REST
 - Banco de dados acessivel via JDBC
 
-Exemplos de integracoes possiveis:
-- **ERPs**: SAP (via JDBC para SQL Server/HANA ou via API REST), Microsoft Dynamics (via API), Protheus (via API ou JDBC), Oracle EBS
-- **CRMs**: Salesforce, HubSpot, Pipedrive, Microsoft Dynamics CRM
-- **BI e Data**: Microsoft Fabric (via JDBC para endpoint SQL), Power BI, Tableau, Google BigQuery
-- **Mensageria e colaboracao**: Slack, Microsoft Teams, WhatsApp, email
-- **Marketing e vendas**: RD Station, Mailchimp, Google Analytics
-- **Outros**: qualquer sistema que exponha API REST ou tenha banco de dados acessivel
+Nao existe uma lista fixa de conectores "suportados" — **qualquer sistema que exponha API ou banco de dados acessivel pode ser integrado**, seja ERP, CRM, BI, ferramenta de mensageria, marketing, ou qualquer outro tipo de sistema corporativo.
 
 ### Integracoes 100% customizaveis via IA (Agent)
 
-Na versao **Agent**, integracoes com sistemas externos sao 100% customizaveis atraves da IA. Basta descrever em linguagem natural qual integracao se deseja (ex: "integre com o Salesforce para importar oportunidades abertas", "envie notificacao no Slack quando aprovacao for pendente ha mais de 24h") e a IA constroi a integracao utilizando as APIs disponibilizadas pelos sistemas.
+Na versao **Agent**, integracoes com sistemas externos sao 100% customizaveis atraves da IA. Basta descrever em linguagem natural qual integracao se deseja e a IA constroi a integracao utilizando as APIs disponibilizadas pelos sistemas.
 
-Isso significa que **nao existe uma lista fixa de conectores suportados** — qualquer sistema que disponibilize uma API ou conexao de banco pode ser integrado. As integracoes desenvolvidas ficam armazenadas como parte do projeto.
+As integracoes desenvolvidas ficam armazenadas como parte do projeto. Credenciais e tokens de APIs externas sao armazenados no servidor de integracoes apartado (MITRA_BASE_URL_INTEGRATIONS), com isolamento entre projetos.
 
 Credenciais e tokens de APIs externas sao armazenados no servidor de integracoes apartado (MITRA_BASE_URL_INTEGRATIONS), com isolamento entre projetos.
 
