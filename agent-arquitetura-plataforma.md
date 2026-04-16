@@ -196,6 +196,41 @@ Os componentes gerenciados (mitra-nuxt, backend WebSocket, Mitra Space) permanec
 
 Nuvens homologadas para componentes dedicados: Azure, AWS, GCP. Specs e valores alinhados pelo time comercial.
 
+### Backend Java (Mitra API) em on-premise
+
+O Backend Java da Mitra e **dockerizado** — distribuido como imagem Docker, facilitando a implantacao em qualquer ambiente compativel.
+
+**Pre-requisito de provedor de nuvem:**
+A utilizacao de provedores consolidados de mercado — **AWS, Microsoft Azure ou Google Cloud Platform** — e obrigatoria, por oferecerem maior confiabilidade, escalabilidade e recursos nativos de seguranca.
+
+**Requisitos minimos de infraestrutura da maquina:**
+
+| Recurso | Especificacao |
+|---------|--------------|
+| **Processamento (CPU)** | Dimensionado com o time de suporte Mitra |
+| **Memoria RAM** | Dimensionado com o time de suporte Mitra |
+| **Armazenamento** | 500 GB NVMe |
+| **Performance de disco** | Minimo de 250 MB/s para leitura e escrita sequencial |
+| **Sistema Operacional** | Ubuntu Server 22.04 |
+
+CPU e RAM devem ser dimensionados com o **time de suporte Mitra** conforme o volume esperado de uso, quantidade de usuarios simultaneos e perfil dos projetos a serem hospedados.
+
+**Validacao da performance de disco:**
+
+Para validar se o disco atende ao minimo de 250 MB/s, utilizar os comandos abaixo (requer a ferramenta `fio`):
+
+Teste de leitura sequencial:
+```bash
+fio --name=teste-leitura-seq --ioengine=libaio --direct=1 --rw=read --bs=1M --size=2G --filename=teste.fio
+```
+
+Teste de escrita sequencial:
+```bash
+fio --name=teste-escrita-seq --ioengine=libaio --direct=1 --rw=write --bs=1M --size=2G --filename=teste.fio
+```
+
+Caso a performance medida seja inferior a 250 MB/s, sera necessario ajustar o tipo de disco (ex: gp3 com IOPS provisionados no AWS, Premium SSD no Azure, SSD com throughput configuravel no GCP).
+
 ---
 
 ## Backup, congelamento e restauracao
