@@ -125,7 +125,6 @@ Ambiente isolado (e2b.dev) onde:
 
 **S3 (build):**
 - O codigo compilado (build Vite) e armazenado no S3
-- Versoes anteriores ficam disponiveis por **15 dias** (politica de retencao)
 - O S3 armazena apenas o build, nao o codigo-fonte
 
 **Firebase:**
@@ -161,7 +160,7 @@ Gerencia apenas: usuarios, workspaces e controle de acessos. Nao lida com dados 
                                                 |                   |
                                          [Codigo-fonte]       [Build Vite]
                                             [GitHub]           [S3 Storage]
-                                          (com commits)        (15 dias)
+                                          (com commits)
                                                                     |
                                                              [Sistema Final]
                                                                     |
@@ -238,11 +237,10 @@ Um projeto no Mitra Agent e composto por duas partes com estrategias de backup d
 |-----------|-----------------|----------|-----------|
 | **Banco de dados** (dados, metadados) | Backup automatico diario (noturno) em S3 separado | Indefinida | 24 horas |
 | **Codigo-fonte** (React + server functions) | GitHub com historico de commits | Permanente (historico de commits) | Segundos (cada alteracao gera commit) |
-| **Build do frontend** (compilado Vite) | S3 com versionamento ativo | 15 dias de versoes | Minutos |
+| **Build do frontend** (compilado Vite) | S3 com versionamento ativo | Gerenciada pela Mitra | Minutos |
 
 Isso significa que:
 - Alteracoes no codigo-fonte (front + server functions) sao versionadas permanentemente no GitHub via commits, permitindo voltar a qualquer ponto historico
-- O build compilado no S3 mantem 15 dias de versoes anteriores
 - Alteracoes no banco de dados dependem do backup diario noturno (RPO de ate 24h)
 
 ### Congelamento automatico
@@ -261,7 +259,6 @@ A tabela `INT_USERLOG` registra apenas acessos as telas de interface. Se usuario
 Quando um projeto e excluido:
 - Backup adicional do banco e gerado no momento da exclusao
 - O repositorio GitHub do projeto mantem o historico de commits
-- O build permanece no S3 com versionamento por ate 15 dias
 - Existe log interno de exclusao
 - Em caso de exclusao acidental, acionar o suporte imediatamente
 

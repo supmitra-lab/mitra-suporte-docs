@@ -52,7 +52,7 @@ Um sistema desenvolvido no Mitra Agent e composto por quatro camadas:
 - O codigo do frontend e gerado pela IA dentro do sandbox E2B
 - Compilado com **Vite** (build acontece dentro do E2B)
 - **Codigo-fonte** commitado no **GitHub** (historico permanente de versionamento via commits)
-- **Build compilado** armazenado no **AWS S3 com versionamento ativo**, com retencao de **15 dias** de versoes
+- **Build compilado** armazenado no **AWS S3 com versionamento ativo**
 - Servido diretamente no browser do usuario final
 
 O frontend se comunica com o backend via **mitra-interactions-sdk**, que fornece funcoes para:
@@ -139,7 +139,7 @@ O Mitra Space gerencia apenas os acessos dos **desenvolvedores** a plataforma (w
 | Componente | Metodo de backup | Retencao | RPO maximo |
 |-----------|-----------------|----------|-----------|
 | Codigo-fonte (React + server functions) | GitHub com historico de commits | Permanente | Segundos (cada alteracao gera commit) |
-| Build do frontend | S3 versionado | 15 dias | Minutos |
+| Build do frontend | S3 versionado | Gerenciada pela Mitra | Minutos |
 | Banco de dados (MySQL) | Backup diario noturno | Indefinida | 24 horas |
 
 Para detalhes completos sobre backup, congelamento e restauracao, consulte a secao "Backup, congelamento e restauracao" em [agent-arquitetura-plataforma.md](agent-arquitetura-plataforma.md).
