@@ -55,6 +55,12 @@ Para configurar o Gateway sao necessarias **3 credenciais**: `client_id`, `clien
 - Deve-se vincular tambem um **usuario do Sankhya do cliente que tenha acesso ao dbexplorer** (obrigatorio).
 - Essa tela gera o `x-token` que completa as credenciais.
 
+**Configurando a integracao no projeto:**
+
+Com as 3 credenciais em maos, basta **enviar as credenciais para a IA** e pedir para ela **criar a integracao** no projeto e **executar um teste simples** para validar.
+
+Se o teste retornar OK, **alterar a connection das server functions do sistema** (template Base de Conhecimento) para passarem a usar essa integracao.
+
 ### 4. Abordagem alternativa — Integracao via JDBC
 
 Quando a abordagem via API nao for adotada, seguir por JDBC. Existem dois cenarios:
