@@ -16,6 +16,7 @@ Usuario envia prompt
   -> Backend WebSocket (Node.js) orquestra
   -> Sandbox E2B (IA gera codigo React + Build Vite)
   -> Streaming em tempo real pro usuario
+  -> Codigo-fonte commitado no GitHub
   -> Build armazenado no S3
   -> Sistema final servido no browser
   -> Sistema se comunica com Backend Java (Mitra API)
@@ -42,8 +43,9 @@ Estes servicos podem ser dedicados por cliente, rodando na nuvem da Mitra ou na 
 | Servico | Funcao | Parametrizacao |
 |---------|--------|---------------|
 | **E2B Sandbox** | Ambiente isolado onde a IA gera codigo React e faz build (Vite) | Cliente pode usar sua propria API key do E2B |
-| **S3 Storage** | Armazena o build do frontend (codigo compilado, versionado) | Bucket dedicado por cliente (API Key + Secret Key) |
-| **Backend Java (Mitra API)** | Backend de dados: MySQL, conexoes JDBC, server functions, integracoes | Instancia exclusiva por cliente (MITRA_BASE_URL_API) |
+| **GitHub** | Hospeda o codigo-fonte dos projetos (React + server functions) com versionamento via commits | Organizacao dedicada do cliente em modelo on-premise |
+| **S3 Storage** | Armazena o build do frontend (codigo compilado) | Bucket dedicado por cliente (API Key + Secret Key) |
+| **Backend Java (Mitra API)** | Backend de dados: MySQL, conexoes JDBC, integracoes | Instancia exclusiva por cliente (MITRA_BASE_URL_API) |
 | **Servidor de Integracoes** | Armazena credenciais de APIs externas de forma apartada | Instancia exclusiva por cliente (MITRA_BASE_URL_INTEGRATIONS) |
 | **S3 Backup** | Backup diario do banco de dados | Bucket dedicado por cliente |
 | **S3 Mitra Drive** | Upload/download de arquivos dos projetos | Bucket dedicado por cliente |
@@ -118,12 +120,22 @@ Ambiente isolado (e2b.dev) onde:
 - Logs detalhados de execucao dentro do sandbox (comandos, chamadas de API) nao sao armazenados pelo Mitra
 - O proprio E2B fornece metricas e logs via dashboard da plataforma
 
-### 5. Storage (S3 + Firebase)
+### 5. Storage (GitHub + S3 + Firebase)
 
-Apos o build:
-- O codigo compilado e armazenado no **S3** com versionamento ativo
-- Versoes anteriores ficam disponiveis por **7 dias** (politica de retencao)
-- Metadata e conversas ficam no **Firebase**
+**GitHub (codigo-fonte):**
+- O codigo-fonte dos projetos (React + server functions) e commitado no GitHub
+- Cada alteracao feita pela IA gera um commit, proporcionando historico completo de versionamento
+- Em modelo on-premise, pode ser uma organizacao GitHub do proprio cliente
+- O historico de commits permite restauracao granular de qualquer ponto no tempo (dentro da retencao)
+
+**S3 (build):**
+- O codigo compilado (build Vite) e armazenado no S3
+- Versoes anteriores ficam disponiveis por **15 dias** (politica de retencao)
+- O S3 armazena apenas o build, nao o codigo-fonte
+
+**Firebase:**
+- Conversas do agente de IA (historico de chats)
+- Configuracoes de whitelabel
 
 ### 6. Preview / Sistema final no browser
 
@@ -150,17 +162,20 @@ Gerencia apenas: usuarios, workspaces e controle de acessos. Nao lida com dados 
                                                           |
                                                     (streaming)
                                                           |
-                                                    [Build Vite]
+                                                +---------+---------+
+                                                |                   |
+                                         [Codigo-fonte]       [Build Vite]
+                                            [GitHub]           [S3 Storage]
+                                          (com commits)        (15 dias)
+                                                                    |
+                                                             [Sistema Final]
+                                                                    |
+                                                       [Backend Java - Mitra API]
+                                                             /           \
+                                                       [MySQL]    [Servidor Integracoes]
                                                           |
-                                                    [S3 Storage]
-                                                          |
-                                                   [Sistema Final]
-                                                          |
-                                              [Backend Java - Mitra API]
-                                                    /           \
-                                              [MySQL]    [Servidor Integracoes]
-                                                |
-                                           [S3 Backup]
+                                                    [S3 Backup]
+                                                    (diario noturno)
 ```
 
 ---
@@ -170,6 +185,7 @@ Gerencia apenas: usuarios, workspaces e controle de acessos. Nao lida com dados 
 Para clientes que exigem isolamento total, os seguintes componentes podem ser dedicados:
 
 - **E2B**: API key propria do cliente
+- **GitHub**: organizacao dedicada do cliente (codigo-fonte dos projetos)
 - **S3 Storage**: bucket dedicado
 - **S3 Backup**: bucket dedicado
 - **S3 Mitra Drive**: bucket dedicado
@@ -190,12 +206,14 @@ Um projeto no Mitra Agent e composto por duas partes com estrategias de backup d
 
 | Componente | Metodo de backup | Retencao | RPO maximo |
 |-----------|-----------------|----------|-----------|
-| **Banco de dados** (dados, metadados, server functions) | Backup automatico diario (noturno) em S3 separado | Indefinida | 24 horas |
-| **Frontend** (codigo React compilado) | S3 com versionamento ativo | 7 dias de versoes | Minutos (cada alteracao gera versao) |
+| **Banco de dados** (dados, metadados) | Backup automatico diario (noturno) em S3 separado | Indefinida | 24 horas |
+| **Codigo-fonte** (React + server functions) | GitHub com historico de commits | Permanente (historico de commits) | Segundos (cada alteracao gera commit) |
+| **Build do frontend** (compilado Vite) | S3 com versionamento ativo | 15 dias de versoes | Minutos |
 
 Isso significa que:
-- Alteracoes no frontend podem ser revertidas a qualquer momento dentro de 7 dias
-- Alteracoes no banco dependem do backup diario noturno
+- Alteracoes no codigo-fonte (front + server functions) sao versionadas permanentemente no GitHub via commits, permitindo voltar a qualquer ponto historico
+- O build compilado no S3 mantem 15 dias de versoes anteriores
+- Alteracoes no banco de dados dependem do backup diario noturno (RPO de ate 24h)
 
 ### Congelamento automatico
 
@@ -212,16 +230,28 @@ A tabela `INT_USERLOG` registra apenas acessos as telas de interface. Se usuario
 
 Quando um projeto e excluido:
 - Backup adicional do banco e gerado no momento da exclusao
-- Frontend permanece no S3 com versionamento por ate 7 dias
+- O repositorio GitHub do projeto mantem o historico de commits
+- O build permanece no S3 com versionamento por ate 15 dias
 - Existe log interno de exclusao
 - Em caso de exclusao acidental, acionar o suporte imediatamente
 
 ### Restauracao
 
+**Restauracao so do codigo-fonte (front + server functions):**
+Nao precisa acionar o suporte. Basta **solicitar a propria IA** — ela tem acesso ao repositorio GitHub do projeto e pode reverter para qualquer commit do historico.
+
+**Restauracao completa (banco + codigo):**
 Solicitar ao **Suporte Mitra** informando:
 - Workspace ID, nome e ID do projeto
-- O que precisa restaurar (frontend, banco ou ambos)
+- O que precisa restaurar (banco, codigo ou ambos)
 - Data/hora aproximada desejada
+
+**Importante sobre sincronia entre codigo e banco:**
+As retencoes sao independentes entre si. Exemplo: se o cliente solicita restauracao para o estado do projeto as **15h do dia X**, vale observar:
+- O **ultimo backup do banco** disponivel sera o da **noite anterior** (dia X-1), pois o backup roda uma vez por noite
+- O **codigo-fonte** pode ser restaurado com precisao de segundos via commit do GitHub
+
+Portanto, em restauracoes completas, o banco sempre voltara para o estado da noite anterior a data desejada. Para recuperacoes mais granulares de codigo, a IA pode reverter commits especificos diretamente.
 
 Formas de restauracao:
 1. **Em um novo projeto** (recomendado) — para comparar ou recuperar sem sobrescrever

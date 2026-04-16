@@ -40,8 +40,8 @@ Um sistema desenvolvido no Mitra Agent e composto por quatro camadas:
 
 | Camada | Tecnologia | Onde fica |
 |--------|-----------|-----------|
-| **Frontend** | React | AWS S3 (versionado) |
-| **Backend (Server Functions)** | SQL / JavaScript | Banco MySQL do projeto |
+| **Frontend** | React | Codigo-fonte no **GitHub** (com commits), build no **AWS S3** |
+| **Backend (Server Functions)** | SQL / JavaScript | Codigo-fonte no **GitHub** (com commits), execucao pelo Backend Java |
 | **Banco de dados** | MySQL | Instancia gerenciada na nuvem |
 | **Integracoes** | API REST | Servidor de integracoes apartado |
 
@@ -51,9 +51,9 @@ Um sistema desenvolvido no Mitra Agent e composto por quatro camadas:
 
 - O codigo do frontend e gerado pela IA dentro do sandbox E2B
 - Compilado com **Vite** (build acontece dentro do E2B)
-- Armazenado no **AWS S3 com versionamento ativo**
+- **Codigo-fonte** commitado no **GitHub** (historico permanente de versionamento via commits)
+- **Build compilado** armazenado no **AWS S3 com versionamento ativo**, com retencao de **15 dias** de versoes
 - Servido diretamente no browser do usuario final
-- Versoes anteriores disponiveis por **7 dias** (politica de retencao)
 
 O frontend se comunica com o backend via **mitra-interactions-sdk**, que fornece funcoes para:
 - Chamar server functions
@@ -68,7 +68,7 @@ O frontend se comunica com o backend via **mitra-interactions-sdk**, que fornece
 
 As server functions sao o backend do sistema. Elas:
 - Sao escritas em **SQL ou JavaScript**
-- Ficam **salvas no banco de dados MySQL** do projeto (nao em arquivos separados)
+- Ficam **versionadas no GitHub junto com o codigo-fonte** do projeto (historico de commits)
 - **Durante o desenvolvimento** (quando a IA esta criando/testando), as server functions sao executadas dentro do sandbox **E2B**
 - Em execucao do sistema final (producao), podem ser invocadas via SDK pelo frontend e processadas pelo Backend Java
 - Podem ser criadas/editadas pela IA (via `mitra-sdk`) ou manualmente
@@ -87,7 +87,7 @@ Casos de uso de server functions:
 
 Cada projeto tem seu proprio banco de dados isolado (schema MySQL independente):
 - **Tenant isolado**: um projeto nao acessa dados de outro
-- **Dados, metadados e server functions**: tudo fica no banco
+- **Dados e metadados** ficam no banco (o codigo-fonte e as server functions ficam no GitHub)
 - **Backup automatico diario** (noturno), armazenado em S3 separado
 - **Conexoes JDBC**: o projeto pode se conectar a bancos externos (MySQL, PostgreSQL, SQL Server, Oracle, BigQuery, Firebird) para leitura ou importacao
 
@@ -138,9 +138,9 @@ O Mitra Space gerencia apenas os acessos dos **desenvolvedores** a plataforma (w
 
 | Componente | Metodo de backup | Retencao | RPO maximo |
 |-----------|-----------------|----------|-----------|
-| Frontend (React) | S3 versionado | 7 dias | Minutos (cada alteracao gera versao) |
-| Banco (MySQL) | Backup diario noturno | Indefinida | 24 horas |
-| Server functions | Incluidas no backup do banco | Indefinida | 24 horas |
+| Codigo-fonte (React + server functions) | GitHub com historico de commits | Permanente | Segundos (cada alteracao gera commit) |
+| Build do frontend | S3 versionado | 15 dias | Minutos |
+| Banco de dados (MySQL) | Backup diario noturno | Indefinida | 24 horas |
 
 Para detalhes completos sobre backup, congelamento e restauracao, consulte a secao "Backup, congelamento e restauracao" em [agent-arquitetura-plataforma.md](agent-arquitetura-plataforma.md).
 
@@ -149,20 +149,28 @@ Para detalhes completos sobre backup, congelamento e restauracao, consulte a sec
 ## Resumo da stack de um projeto
 
 ```
-[Usuario Final]
-      |
-      v
-[Frontend React] ---- servido do S3
-      |
-      | mitra-interactions-sdk
-      v
+[Codigo-fonte: GitHub (React + server functions)]
+                |
+         (build via Vite)
+                |
+                v
+           [S3: Build]
+                |
+                v
+        [Usuario Final]
+                |
+                v
+[Frontend React] ---- servido do S3 (build)
+                |
+                | mitra-interactions-sdk
+                v
 [Backend Java - Mitra API]
-      |
-      +--> [MySQL] ---- dados + server functions
-      |
-      +--> [Servidor de Integracoes] ---- credenciais de APIs externas
-      |
-      +--> [S3 Mitra Drive] ---- arquivos
-      |
-      +--> [Conexoes JDBC] ---- bancos externos do cliente
+                |
+                +--> [MySQL] ---- dados
+                |
+                +--> [Servidor de Integracoes] ---- credenciais de APIs externas
+                |
+                +--> [S3 Mitra Drive] ---- arquivos
+                |
+                +--> [Conexoes JDBC] ---- bancos externos do cliente
 ```
