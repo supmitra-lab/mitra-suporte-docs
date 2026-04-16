@@ -30,6 +30,12 @@ O Analytics AI possui **ambiente proprio e separado** do Sankhya:
 
 Este e o processo padrao para iniciar um projeto novo de Analytics AI integrado ao Sankhya. Seguir na ordem.
 
+> **Pre-requisitos (fora do escopo deste passo a passo):**
+> 1. **Comercial** — contratacao das licencas do Analytics AI.
+> 2. **Instalacao do addon** do Analytics AI no Sankhya do cliente.
+>
+> Apenas apos essas duas etapas e que o processo abaixo se aplica.
+
 ### 1. Instalar o template "Base de Conhecimento"
 
 Todo projeto novo comeca pela instalacao do template **Base de Conhecimento**, que existe em duas versoes:
