@@ -26,7 +26,7 @@ O Analytics AI possui **ambiente proprio e separado** do Sankhya:
 
 ---
 
-## Processo padrao de integracao (passo a passo)
+## Processo padrao de implantacao (passo a passo)
 
 Este e o processo padrao para iniciar um projeto novo de Analytics AI integrado ao Sankhya. Seguir na ordem.
 
