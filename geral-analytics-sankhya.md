@@ -45,12 +45,10 @@ Caso o cliente nao concorde, ou o proprio consultor identifique que a API nao e 
 
 > Ola, [nome do cliente]!
 >
-> Antes de iniciarmos a configuracao tecnica do Analytics AI, precisamos alinhar com voces qual sera a forma de conexao entre o Analytics AI e o banco de dados do Sankhya de voces.
->
-> Por questao de seguranca, o **banco de dados do Analytics AI e totalmente apartado do banco do Sankhya** — nao ha compartilhamento direto entre eles. O ambiente do Analytics AI fica hospedado na **Cloud Sankhya**, e toda leitura dos dados do ERP ocorre sob demanda, via conector. Existem duas abordagens possiveis para essa conexao:
+> Antes de iniciarmos a configuracao tecnica do Analytics AI, precisamos alinhar com voces qual sera a forma de conexao entre o Analytics AI e o banco de dados do Sankhya de voces. Existem duas abordagens possiveis:
 >
 > **1) Integracao via API (padrao/recomendada)**
-> Utilizamos o Gateway do Sankhya como intermediario, sem necessidade de exposicao direta do banco de dados. E a forma mais simples, segura e rapida de colocar o Analytics AI em producao. O pre-requisito e que a API do Gateway seja configurada com um usuario que tenha acesso ao DBExplorer, pois as consultas utilizam esse endpoint (limite de 5 mil linhas por requisicao).
+> Utilizamos o Gateway do Sankhya como intermediario, reaproveitando a infraestrutura de API ja existente no Sankhya de voces. E a forma mais simples e rapida de colocar o Analytics AI em producao, pois nao envolve configuracao de rede ou liberacoes adicionais de infraestrutura. O pre-requisito e que a API do Gateway seja configurada com um usuario que tenha acesso ao DBExplorer, pois as consultas utilizam esse endpoint (limite de 5 mil linhas por requisicao).
 >
 > **2) Integracao via JDBC (alternativa)**
 > Conexao direta ao banco de dados do Sankhya. E utilizada quando ha necessidade de trafegar grandes volumes de dados (ex.: importacoes) ou quando a abordagem via API nao atende. Envolve liberacao de acesso ao banco (via Service Desk da Sankhya, se o ERP estiver na Cloud Sankhya, ou via Cloudflare Tunnel, se estiver em nuvem terceira / on premise).
