@@ -61,8 +61,21 @@ Quando a abordagem via API nao for adotada, seguir por JDBC. Existem dois cenari
 
 **Cenario A — Sankhya do cliente na Cloud Sankhya:**
 1. O consultor deve acessar (ou pedir ao cliente para acessar) a tela **Preferencias** do Sankhya do cliente, buscar por **Analytics AI**, abrir **Configuracoes 2.0** e **copiar o JSON** que esta ali. Enviar esse JSON ao **suporte Mitra** para que seja identificado em qual servidor o Analytics AI do cliente esta hospedado.
-2. Solicitar ao **suporte Mitra** em qual servidor esta hospedado o Analytics AI do cliente.
-3. Pedir ao **cliente** que abra um ticket no **Service Desk da Sankhya** solicitando a liberacao do banco dele para o servidor X do Analytics AI.
+2. Com o servidor identificado pelo suporte Mitra, pedir ao **cliente** que abra um ticket no **Service Desk da Sankhya** solicitando a liberacao do banco dele para o servidor X do Analytics AI.
+
+   **Sugestao de titulo do ticket:**
+   > Liberacao de acesso ao banco de dados para o Analytics AI (servidor [X])
+
+   **Sugestao de descricao do ticket:**
+   > Prezados,
+   >
+   > Solicitamos a liberacao de acesso ao nosso banco de dados Sankhya (hospedado na Cloud Sankhya) para o servidor do Analytics AI identificado como **[X]** pela equipe Mitra.
+   >
+   > O acesso e necessario para viabilizar a integracao via JDBC entre o Analytics AI e o nosso ERP Sankhya.
+   >
+   > Favor nos fornecer: **host, porta, nome do database/service name, usuario e senha** com permissao de leitura nas tabelas necessarias.
+   >
+   > Obrigado.
 
 **Cenario B — Sankhya do cliente em nuvem terceira ou on premise:**
 1. Solicitar ao cliente o **IP interno** e a **porta** do banco de dados do Sankhya dele.
