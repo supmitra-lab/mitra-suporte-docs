@@ -41,6 +41,22 @@ Antes de qualquer configuracao tecnica, **alinhar com o cliente se ele concorda 
 
 Caso o cliente nao concorde, ou o proprio consultor identifique que a API nao e viavel (por exemplo, quando e necessario **importar dados** em volume), seguir para a **abordagem alternativa via JDBC** (passo 4).
 
+**Sugestao de mensagem para o consultor enviar ao cliente:**
+
+> Ola, [nome do cliente]!
+>
+> Antes de iniciarmos a configuracao tecnica do Analytics AI, precisamos alinhar com voces qual sera a forma de conexao entre o Analytics AI e o banco de dados do Sankhya de voces. Existem duas abordagens possiveis:
+>
+> **1) Integracao via API (padrao/recomendada)**
+> Utilizamos o Gateway do Sankhya como intermediario, sem necessidade de exposicao direta do banco de dados. E a forma mais simples, segura e rapida de colocar o Analytics AI em producao. O pre-requisito e que a API do Gateway seja configurada com um usuario que tenha acesso ao DBExplorer, pois as consultas utilizam esse endpoint (limite de 5 mil linhas por requisicao).
+>
+> **2) Integracao via JDBC (alternativa)**
+> Conexao direta ao banco de dados do Sankhya. E utilizada quando ha necessidade de trafegar grandes volumes de dados (ex.: importacoes) ou quando a abordagem via API nao atende. Envolve liberacao de acesso ao banco (via Service Desk da Sankhya, se o ERP estiver na Cloud Sankhya, ou via Cloudflare Tunnel, se estiver em nuvem terceira / on premise).
+>
+> Nossa recomendacao e iniciar pela **abordagem via API**. Voces concordam em seguir por esse caminho? Caso prefiram a via JDBC (ou identifiquem alguma restricao para a API), nos avisem para ajustarmos a configuracao.
+>
+> Obrigado!
+
 ### 3. Abordagem padrao — Integracao via API (Gateway do Sankhya)
 
 Para configurar o Gateway sao necessarias **3 credenciais**: `client_id`, `client_secret` e `x-token`.
@@ -73,7 +89,7 @@ Quando a abordagem via API nao for adotada, seguir por JDBC. Existem dois cenari
    >
    > O acesso e necessario para viabilizar a integracao via JDBC entre o Analytics AI e o nosso ERP Sankhya.
    >
-   > Favor nos fornecer: **host, porta, nome do database/service name, usuario e senha** com permissao de leitura em todas as tabelas do banco.
+   > Favor nos fornecer: **host, porta, nome do database/service name, usuario e senha** com permissao de leitura nas tabelas necessarias.
    >
    > Obrigado.
 
@@ -81,7 +97,6 @@ Quando a abordagem via API nao for adotada, seguir por JDBC. Existem dois cenari
 1. Solicitar ao cliente o **IP interno** e a **porta** do banco de dados do Sankhya dele.
 2. Criar um **Cloudflare Tunnel** nas configuracoes do Workspace do Analytics AI, informando IP interno e porta na criacao da rota.
 3. Entregar ao cliente o **token do tunnel** junto com as instrucoes de como instalar o Cloudflare Tunnel.
-4. Solicitar tambem ao cliente as credenciais de acesso ao banco de dados do Sankhya: **host, porta, nome do database/service name, usuario e senha** com permissao de leitura em todas as tabelas do banco.
 
 ---
 
