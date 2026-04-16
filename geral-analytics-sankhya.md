@@ -15,6 +15,17 @@ A integracao permite que:
 
 ---
 
+## Arquitetura
+
+O Analytics AI possui **ambiente proprio e separado** do Sankhya:
+
+- O ambiente roda em servidores na **cloud da Sankhya**
+- O ERP do cliente pode estar na cloud Sankhya, Sky.One, Wevy, outra nuvem terceira ou on premise
+- O banco de dados do Analytics AI e **separado** do banco do ERP
+- Toda integracao ocorre por conectores (nao ha compartilhamento direto de banco)
+
+---
+
 ## Processo padrao de integracao (passo a passo)
 
 Este e o processo padrao para iniciar um projeto novo de Analytics AI integrado ao Sankhya. Seguir na ordem.
@@ -100,42 +111,6 @@ Quando a abordagem via API nao for adotada, seguir por JDBC. Existem dois cenari
 
 ---
 
-## Arquitetura
-
-O Analytics AI possui **ambiente proprio e separado** do Sankhya:
-
-- O ambiente roda em servidores na **cloud da Sankhya**
-- O ERP do cliente pode estar na cloud Sankhya, Sky.One, Wevy ou outra
-- O banco de dados do Analytics AI e **separado** do banco do ERP
-- Toda integracao ocorre por conectores (nao ha compartilhamento direto de banco)
-
----
-
-## Conectividade com o banco do Sankhya
-
-### Opcoes de conexao
-
-Existem duas formas de conectar o Analytics AI ao banco do ERP:
-
-**1. Via API (Gateway do Sankhya)**
-- Utiliza a API nativa do Sankhya como intermediaria
-- Nao requer exposicao direta do banco de dados
-
-**2. Via JDBC**
-- Conexao direta ao banco de dados do ERP
-- Quando o ERP esta na **Cloud Sankhya**: nao precisa de Cloudflare Tunnel. O cliente deve:
-  1. Solicitar ao suporte Mitra qual servidor hospeda seu ambiente
-  2. Abrir ticket no Service Desk da Sankhya solicitando a conexao do Analytics AI com o DB, informando o servidor
-  3. A Sankhya fornecera: host, porta, database/service name, usuario e senha
-  4. O usuario deve ter permissao de leitura e acesso as tabelas necessarias
-- Quando o ERP esta **fora da Cloud Sankhya**: utilizar **Cloudflare Tunnel** para conexao segura
-
-### Conector Sankhya DB
-
-Em todos os projetos do Analytics AI e criado automaticamente um conector chamado **Sankhya DB**, que permite executar queries no banco do ERP.
-
----
-
 ## Licencas
 
 O Analytics AI verifica licencas diretamente no Sankhya:
@@ -145,28 +120,23 @@ O Analytics AI verifica licencas diretamente no Sankhya:
    - **30965** — Desenvolvedor
    - **30967** — Viewer
 
-O usuario **SUP** (admin padrao do Sankhya) nao consome licenca.
+O usuario **SUP** (admin padrao do Sankhya) nao consome licenca. Ele ja possui acesso ao Analytics AI por padrao, com as mesmas permissoes de um usuario **Administrador do Workspace**.
 
 ---
 
 ## Perfis de acesso
 
+### Administrador do Workspace
+- Acesso a todos os projetos com permissao de desenvolvedor
+- Pode gerenciar permissoes
+
 ### Desenvolvedor (DEV)
 - Acesso total ao projeto
 - Criar/editar telas, Actions, integracoes, variaveis
-- Acesso completo ao banco do Sankhya via conector (equivalente ao DBExplorer)
-
-**Se precisar dar perfil DEV sem acesso ao banco do Sankhya:** solicitar ao suporte Mitra a criacao de um projeto separado, sem conexao com o Sankhya.
-
-### Administrador do Workspace
-- Acesso a todos os projetos
-- Pode gerenciar permissoes
 
 ### Viewer
-- Acessa projetos liberados
-- Enxerga todas as telas do projeto
+- Acesso somente aos projetos liberados por algum desenvolvedor
 - Nao possui permissoes tecnicas
-- Acesso a IA pode ser habilitado/desabilitado via toggle
 
 ---
 
