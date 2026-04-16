@@ -35,6 +35,7 @@ Estes servicos sao operados exclusivamente pela Mitra e nao podem ser implantado
 | **mitra-nuxt** | Nuxt.js | Frontend/IDE onde o desenvolvedor faz prompts e ve o codigo sendo gerado em tempo real |
 | **mitra-agent-websocket** | Node.js | Orquestra a comunicacao entre o frontend e o sandbox E2B |
 | **Mitra Space** | Backend proprio | Gerencia usuarios, workspaces e controle de acessos |
+| **Firebase** | Firebase | Armazena conversas do agente de IA (historico de chats) e configuracoes de whitelabel (logos, cores, nomes) |
 
 ### Servicos parametrizaveis por cliente (on-premise possivel)
 
@@ -49,12 +50,6 @@ Estes servicos podem ser dedicados por cliente, rodando na nuvem da Mitra ou na 
 | **Servidor de Integracoes** | Armazena credenciais de APIs externas de forma apartada | Instancia exclusiva por cliente (MITRA_BASE_URL_INTEGRATIONS) |
 | **S3 Backup** | Backup diario do banco de dados | Bucket dedicado por cliente |
 | **S3 Mitra Drive** | Upload/download de arquivos dos projetos | Bucket dedicado por cliente |
-
-### Firebase
-
-O Firebase armazena:
-- Conversas do agente de IA (historico de chats)
-- Configuracoes de whitelabel (logos, cores, nomes)
 
 ---
 
