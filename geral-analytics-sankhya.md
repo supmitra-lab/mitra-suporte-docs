@@ -4,6 +4,61 @@ Documentacao sobre a integracao do Mitra com o Sankhya ERP, cobrindo arquitetura
 
 ---
 
+## Processo padrao de integracao (passo a passo)
+
+Este e o processo padrao para iniciar um projeto novo de Analytics AI integrado ao Sankhya. Seguir na ordem.
+
+### 1. Instalar o template "Base de Conhecimento"
+
+Todo projeto novo comeca pela instalacao do template **Base de Conhecimento**, que existe em duas versoes:
+- **MSSQL**
+- **Oracle**
+
+Instalar a versao correspondente ao banco de dados do cliente.
+
+O template entrega uma serie de BIs prontos (Vendas, Compras, Financeiro, etc). Os dashboards utilizam **server functions de API** para apresentar os dados em tempo real. Todas as server functions do template assumem que:
+- O projeto possui uma **integracao de API com o Gateway do Sankhya**
+- As chamadas usam o **endpoint dbexplorer**
+
+**Limitacoes importantes do dbexplorer:**
+- Limite de **5.000 linhas por requisicao**
+- O usuario configurado na API do Gateway **precisa ter acesso ao dbexplorer**, senao a integracao nao funciona
+
+### 2. Alinhar com o cliente a abordagem de integracao
+
+Antes de qualquer configuracao tecnica, **alinhar com o cliente se ele concorda com a abordagem padrao/recomendada (API via Gateway do Sankhya)**.
+
+Caso o cliente nao concorde, ou o proprio consultor identifique que a API nao e viavel (por exemplo, quando e necessario **importar dados** em volume), seguir para a **abordagem alternativa via JDBC** (passo 4).
+
+### 3. Abordagem padrao — Integracao via API (Gateway do Sankhya)
+
+Para configurar o Gateway sao necessarias **3 credenciais**: `client_id`, `client_secret` e `x-token`.
+
+**client_id e client_secret:**
+- Recomenda-se que a **matriz** e **cada canal** tenham seu proprio usuario no **Developer Sankhya**.
+- Cada usuario do Developer gera um par `client_id` / `client_secret` proprio, que sera usado na configuracao do Gateway.
+
+**x-token:**
+- O proprio **cliente** deve criar uma nova aplicacao na tela **Configuracoes Gateway** do Sankhya dele.
+- A aplicacao deve ser **vinculada a aplicacao "Integracoes" do parceiro "MITRA TECNOLOGIA EM SISTEMAS LTDA"**.
+- Deve-se vincular tambem um **usuario do Sankhya do cliente que tenha acesso ao dbexplorer** (obrigatorio).
+- Essa tela gera o `x-token` que completa as credenciais.
+
+### 4. Abordagem alternativa — Integracao via JDBC
+
+Quando a abordagem via API nao for adotada, seguir por JDBC. Existem dois cenarios:
+
+**Cenario A — Sankhya do cliente na Cloud Sankhya:**
+1. Solicitar ao **suporte Mitra** em qual servidor esta hospedado o Analytics AI do cliente.
+2. Pedir ao **cliente** que abra um ticket no **Service Desk da Sankhya** solicitando a liberacao do banco dele para o servidor X do Analytics AI.
+
+**Cenario B — Sankhya do cliente em nuvem terceira ou on premise:**
+1. Solicitar ao cliente o **IP interno** e a **porta** do banco de dados do Sankhya dele.
+2. Criar um **Cloudflare Tunnel** nas configuracoes do Workspace do Analytics AI, informando IP interno e porta na criacao da rota.
+3. Entregar ao cliente o **token do tunnel** junto com as instrucoes de como instalar o Cloudflare Tunnel.
+
+---
+
 ## Visao geral
 
 O **Analytics AI** e o produto de inteligencia analitica disponibilizado dentro do Sankhya ERP. A tecnologia por tras e o **Mitra**, porem para o cliente final o produto e apresentado como **Analytics AI**.
