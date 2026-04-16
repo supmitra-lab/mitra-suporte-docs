@@ -73,7 +73,7 @@ Quando a abordagem via API nao for adotada, seguir por JDBC. Existem dois cenari
    >
    > O acesso e necessario para viabilizar a integracao via JDBC entre o Analytics AI e o nosso ERP Sankhya.
    >
-   > Favor nos fornecer: **host, porta, nome do database/service name, usuario e senha** com permissao de leitura nas tabelas necessarias.
+   > Favor nos fornecer: **host, porta, nome do database/service name, usuario e senha** com permissao de leitura em todas as tabelas do banco.
    >
    > Obrigado.
 
@@ -81,6 +81,7 @@ Quando a abordagem via API nao for adotada, seguir por JDBC. Existem dois cenari
 1. Solicitar ao cliente o **IP interno** e a **porta** do banco de dados do Sankhya dele.
 2. Criar um **Cloudflare Tunnel** nas configuracoes do Workspace do Analytics AI, informando IP interno e porta na criacao da rota.
 3. Entregar ao cliente o **token do tunnel** junto com as instrucoes de como instalar o Cloudflare Tunnel.
+4. Solicitar tambem ao cliente as credenciais de acesso ao banco de dados do Sankhya: **host, porta, nome do database/service name, usuario e senha** com permissao de leitura em todas as tabelas do banco.
 
 ---
 
