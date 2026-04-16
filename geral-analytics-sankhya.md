@@ -142,13 +142,22 @@ O usuario **SUP** (admin padrao do Sankhya) nao consome licenca. Ele ja possui a
 
 ## Telas automaticas no Sankhya
 
-Ao instalar o Analytics AI, duas telas sao criadas no ERP:
+Ao instalar o Analytics AI, algumas telas sao criadas automaticamente no ERP:
 
-1. **Analytics Studio** — Home do Workspace (para devs e admins)
-2. **Converse com seus dados** — Playground para interacao com a IA
+### Telas atuais
 
-### Publicacao de telas
-Telas desenvolvidas em projetos podem ser publicadas (tres pontos na interface) e passam a aparecer como telas dentro do Sankhya.
+1. **Agent Studio** — tela onde o usuario **desenvolvedor** desenvolve os projetos do Analytics AI.
+2. **Agent Workbench** — tela onde os **usuarios finais** interagem com o agente.
+3. **Membros** — tela para configurar os **acessos** dos usuarios ao Analytics AI.
+
+> **Observacao:** a configuracao dos **perfis de acesso** (quem tem acesso a quais projetos e com qual papel) e feita dentro da **configuracao de cada projeto**, pela tela **Agent Studio**.
+
+### Telas legadas
+
+As telas abaixo sao vinculadas ao **workspace legado** e ainda podem aparecer em ambientes antigos:
+
+1. **Analytics Studio** — Home do Workspace legado (para devs e admins).
+2. **Converse com seus dados** — Playground para interacao com a IA.
 
 ---
 
@@ -156,7 +165,7 @@ Telas desenvolvidas em projetos podem ser publicadas (tres pontos na interface) 
 
 A gestao de acessos **NAO deve ser feita pelo controle de telas do Sankhya**.
 
-As liberacoes devem ser feitas **pelo botao de acessos no Workspace dentro do Analytics Studio**.
+As liberacoes devem ser feitas pela tela **Membros**, criada automaticamente no Sankhya junto com a instalacao do Analytics AI.
 
 Se um usuario for liberado apenas pelo controle de telas do Sankhya:
 - A tela aparecera no menu
